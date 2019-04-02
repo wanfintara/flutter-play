@@ -25,6 +25,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         curve: Curves.easeIn,
       ),
     );
+
+    catController.forward();
   }
 
   @override
@@ -38,6 +40,18 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   }
 
   Widget buildAnimation() {
-    return Cat();
+    return AnimatedBuilder(
+      animation: catAnimation,
+      builder: (BuildContext context, Widget child) {
+        return Container(
+          child: child,
+          margin: EdgeInsets.only(top: catAnimation.value),
+        );
+      },
+      /// * This child will only create once and passing into build [child]
+      /// to avoid builder to repeat creating new child again and again
+      /// because the builder is triggered when the animation running (repeatly)
+      child: Cat(),
+    );
   }
 }
