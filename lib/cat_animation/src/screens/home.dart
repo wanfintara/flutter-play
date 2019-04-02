@@ -25,8 +25,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         curve: Curves.easeIn,
       ),
     );
-
-    catController.forward();
   }
 
   @override
@@ -35,7 +33,10 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       appBar: AppBar(
         title: Text('Animation'),
       ),
-      body: buildAnimation(),
+      body: GestureDetector(
+        child: buildAnimation(),
+        onTap: onTap,
+      ),
     );
   }
 
@@ -48,10 +49,19 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
           margin: EdgeInsets.only(top: catAnimation.value),
         );
       },
+
       /// * This child will only create once and passing into build [child]
       /// to avoid builder to repeat creating new child again and again
       /// because the builder is triggered when the animation running (repeatly)
       child: Cat(),
     );
+  }
+
+  void onTap() {
+    if (catController.status == AnimationStatus.completed) {
+      catController.reverse();
+    } else if (catController.status == AnimationStatus.dismissed) {
+      catController.forward();
+    }
   }
 }
