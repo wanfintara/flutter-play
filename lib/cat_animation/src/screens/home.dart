@@ -64,4 +64,12 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       catController.forward();
     }
   }
+
+  Widget buildBox() {
+    return Container(
+      height: 200,
+      width: 200,
+      color: Colors.brown,
+    );
+  }
 }
